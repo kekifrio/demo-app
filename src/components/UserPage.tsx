@@ -1,5 +1,4 @@
 import { signOut } from "next-auth/react";
-
 type userPageProps = { name: string; email: string; image: string };
 
 function UserPage({ name, email, image }: userPageProps) {

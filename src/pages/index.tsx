@@ -3,10 +3,10 @@ import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import UserPage from "~/components/UserPage";
+import UserCards from "~/components/UserCards";
 export default function Home() {
   const { data: session } = useSession();
   const sessionUser = session?.user;
-  console.log(sessionUser);
 
   return (
     <>
@@ -17,11 +17,14 @@ export default function Home() {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         {sessionUser ? (
-          <UserPage
-            name={sessionUser.name || "Not Found"}
-            email={sessionUser.email || "Not Found"}
-            image={sessionUser.image || "Not Found"}
-          />
+          <>
+            <UserPage
+              name={sessionUser.name || "Not Found"}
+              email={sessionUser.email || "Not Found"}
+              image={sessionUser.image || "Not Found"}
+            />
+            <UserCards />
+          </>
         ) : (
           <button onClick={() => signIn()}>Sign In</button>
         )}
