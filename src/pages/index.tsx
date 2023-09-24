@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
-import UserPage from "~/components/UserPage";
+import UserAuth from "~/components/UserAuth";
 import UserCards from "~/components/UserCards";
 export default function Home() {
   const { data: session } = useSession();
@@ -18,15 +18,23 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         {sessionUser ? (
           <>
-            <UserPage
-              name={sessionUser.name || "Not Found"}
-              email={sessionUser.email || "Not Found"}
-              image={sessionUser.image || "Not Found"}
-            />
+            <div>
+              <UserAuth
+                name={sessionUser.name || "Not Found"}
+                email={sessionUser.email || "Not Found"}
+                image={sessionUser.image || "Not Found"}
+              />
+            </div>
+
             <UserCards />
           </>
         ) : (
-          <button onClick={() => signIn()}>Sign In</button>
+          <button
+            className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            onClick={() => signIn()}
+          >
+            Sign In
+          </button>
         )}
       </main>
     </>

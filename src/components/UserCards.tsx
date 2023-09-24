@@ -65,15 +65,16 @@ function UserCard() {
   return (
     <div>
       <div>
+        <div></div>
         <input
-          className="text-black"
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           type="text"
           value={searchTerm}
           onChange={handleSearch}
           placeholder="Search..."
         />
         <select
-          className="text-black"
+          className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
           value={filter}
           onChange={handleFilterChange}
         >
@@ -88,22 +89,34 @@ function UserCard() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
-          {filteredPersons.map((person, i) => (
-            <li key={i}>
-              <strong>Name:</strong> {person.name}
-              <br />
-              <strong>National ID:</strong> {person.national_id}
-              <br />
-              <strong>Phone Number:</strong> {person.phone_number}
-              <br />
-              <strong>Address:</strong> {person.address}
-              <br />
-              <strong>Salary:</strong> {person.salary}
-              <br />
-            </li>
-          ))}
-        </ul>
+        <table className="min-w-full text-left text-sm font-light">
+          <thead className="border-b font-medium dark:border-neutral-500">
+            <tr>
+              <th className="px-6 py-4">Name</th>
+              <th className="px-6 py-4">National ID</th>
+              <th className="px-6 py-4">Phone Number</th>
+              <th className="px-6 py-4">Address</th>
+              <th className="px-6 py-4">Salary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredPersons.map((person, i) => (
+              <tr key={i} className="border-b dark:border-neutral-500">
+                <td className="whitespace-nowrap px-6 py-4">{person.name}</td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {person.national_id}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {person.phone_number}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {person.address}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">{person.salary}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
