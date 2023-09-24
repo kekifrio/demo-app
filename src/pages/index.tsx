@@ -1,12 +1,13 @@
 import Head from "next/head";
-import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
-import { useState } from "react";
 import UserAuth from "~/components/UserAuth";
 import UserCards from "~/components/UserCards";
+import { useRouter } from "next/router";
+
 export default function Home() {
   const { data: session } = useSession();
   const sessionUser = session?.user;
+  const router = useRouter();
 
   return (
     <>
@@ -27,6 +28,13 @@ export default function Home() {
             </div>
 
             <UserCards />
+            <button
+              className="mt-4 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              type="button"
+              onClick={() => router.push("/add")}
+            >
+              Add User +
+            </button>
           </>
         ) : (
           <button
