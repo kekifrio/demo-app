@@ -30,38 +30,32 @@ export default async function handler(
 
     const { name, national_id, phone_number, address, salary } = req.body;
 
-    const validationNational_id = nationalIdSchema.safeParse(national_id);
-    if (!validationNational_id.success) {
-      res.status(400).json({ message: "Invalid national_id format" });
-      return;
-    }
-
     const validationName = nameSchema.safeParse(name);
     if (!validationName.success) {
-      res.status(400).json({ message: "Invalid name format" });
-      return;
+      return res.status(400).json({ message: "Invalid name format" });
     }
 
-    const validationPhone_number = phoneNumberSchema.safeParse(phone_number);
-    if (!validationPhone_number.success) {
-      res.status(400).json({ message: "Invalid phone_number format" });
-      return;
+    const validationNational_id = nationalIdSchema.safeParse(national_id);
+    if (!validationNational_id.success) {
+      return res.status(400).json({ message: "Invalid national_id format" });
     }
 
     const validationSalary = salarySchema.safeParse(salary);
     if (!validationSalary.success) {
-      res.status(400).json({ message: "Invalid salary format" });
-      return;
+      return res.status(400).json({ message: "Invalid salary format" });
+    }
+
+    const validationPhone_number = phoneNumberSchema.safeParse(phone_number);
+    if (!validationPhone_number.success) {
+      return res.status(400).json({ message: "Invalid phone_number format" });
     }
 
     const validationAddress = addressSchema.safeParse(address);
     if (!validationAddress.success) {
-      res.status(400).json({ message: "Invalid address format" });
-      return;
+      return res.status(400).json({ message: "Invalid address format" });
     }
 
     const prisma = new PrismaClient();
-
     const person = await prisma.person.create({
       data: {
         name,
