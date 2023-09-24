@@ -1,28 +1,104 @@
-# Create T3 App
+# Personal Information Management and Display Application with Next.js and React Demo
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is a demo of a **web application using the [Next.js](https://nextjs.org/) and [React](https://reactjs.org/) programming stack** that allows users to authenticate, enter personal information, and view it in a list.
 
-## What's next? How do I make an app with this?
+The application has the following features:
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+1. Authentication and Session Management
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+2. Relational database
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+3. Management of Forms with Validations
 
-## Learn More
+4. Database Data Presentation
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+This application will showcase the implementation of a **fullstack app in TypeScript with [Next.js](https://nextjs.org/)** with the following stack:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- [React](https://reactjs.org/) (frontend)
+- [Next.js API routes](https://nextjs.org/docs/api-routes/introduction)
+- [Prisma Client](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client) (backend).
+- [NextAuth.js](https://next-auth.js.org/) for authentication. 
+- [PostgreSQL](http://postgresql.org/) as the database of choice.
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## Getting started
 
-## How do I deploy this?
+### 1. Download and install dependencies
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+Clone this repository:
+
+```
+git clone git@github.com:kekifrio/demo-app.git
+```
+
+Install npm dependencies:
+
+```
+cd prisma-nextjs-blog
+npm install
+```
+
+</details>
+
+### 2. Create .env file and configure environment variables
+
+Create a .env file following the instructions inside the .env.example to set the environment variables.
+
+### 3. Create and seed the database
+
+Run the following command in order to sync your Prisma schema with your database and it will generate the TypeScript types for the Prisma Client based on your schema. 
+
+```
+npx prisma db push
+```
+
+Run the following command to create your PostgreSQL database. This also creates the `User`, `Account`, `Session` and `VerificationToken` tables that are defined in [`prisma/schema.prisma`](./prisma/schema.prisma):
+
+```
+npx prisma migrate dev --name init
+```
+
+
+### 3. Configuring your authentication provider
+
+In order to get this example to work, you need to configure the [Discord](https://next-auth.js.org/providers/discord) authentication provider from NextAuth.js.
+
+#### Configuring the Discord authentication provider
+
+<details><summary>Expand to learn how you can configure the Discord authentication provider</summary>
+
+1. You will need a [Discord](https://discord.com/register) account, so register one if you haven’t already.
+
+2. Navigate to https://discord.com/developers/applications↗ and click “New Application” in the top right corner. Give your application a name and agree to the Terms of Service.
+
+3. Once your application has been created, navigate to “Settings → OAuth2 → General”.
+
+4. Copy the “Client ID” and add it to your **.env** as **DISCORD_CLIENT_ID**.
+   
+5. Click “Reset Secret”, copy the new secret, and add it to your **.env** as **DISCORD_CLIENT_SECRET**.
+   
+6. Click “Add Redirect” and type in **http://localhost:3000/api/auth/callback/discord**.
+   
+7. Save Changes.
+   
+8. Set the **NEXTAUTH_SECRET** in **.env**. In development any string will work, for production see the note in **.env** on generating a secure secret.
+   
+You should now be able to log in.
+
+</details>
+
+
+### 4. Start the app
+
+```
+npm run dev
+```
+
+The app is now running, navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser to explore its UI.
+
+
+</details>
+
+## Next steps
+
+- Check out the [Prisma docs](https://www.prisma.io/docs)
+- Check out the [Next-auth docs](https://next-auth.js.org/getting-started/introduction)
