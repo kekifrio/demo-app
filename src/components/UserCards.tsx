@@ -9,20 +9,36 @@ interface personsArray {
   salary: string;
 }
 
+interface ResponseData {
+  data: personsArray[]; // Assuming the response data is an array of personsArray objects
+}
+
 function UserCard() {
   const [persons, setPersons] = useState<personsArray[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("");
 
-  const getAllPersons = async () => {
-    try {
-      const response = await axios.get("/api/person/getAll");
-      setPersons(response.data.data);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
+  // const getAllPersons = async () => {
+  //   try {
+  //     const response = await axios.get<ResponseData>("/api/person/getAll");
+  //     setPersons(response.data.data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const getAllPersons = () => {
+    axios
+      .get<ResponseData>("/api/person/getAll")
+      .then((response) => {
+        setPersons(response.data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {

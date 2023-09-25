@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 import authOptions from "../auth/[...nextauth]";
 import { z } from "zod";
+import { AuthOptions } from "next-auth";
 
 const nationalIdSchema = z
   .string()
@@ -21,14 +22,24 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === "POST") {
-    const session = await getServerSession(req, res, authOptions);
+    const session = await getServerSession(
+      req,
+      res,
+      authOptions as AuthOptions,
+    );
 
     if (session)
       return res.status(401).json({
         message: "Unauthorized",
       });
 
-    const { name, national_id, phone_number, address, salary } = req.body;
+    const { name, national_id, phone_number, address, salary } = req.body as {
+      name: string;
+      national_id: string;
+      phone_number: string;
+      address: string;
+      salary: string;
+    };
 
     const validationName = nameSchema.safeParse(name);
     if (!validationName.success) {

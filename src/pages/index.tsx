@@ -21,9 +21,9 @@ export default function Home() {
           <>
             <div>
               <UserAuth
-                name={sessionUser.name || "Not Found"}
-                email={sessionUser.email || "Not Found"}
-                image={sessionUser.image || "Not Found"}
+                name={sessionUser.name ?? "Not Found"}
+                email={sessionUser.email ?? "Not Found"}
+                image={sessionUser.image ?? "Not Found"}
               />
             </div>
 
