@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 import authOptions from "../auth/[...nextauth]";
 import { z } from "zod";
-import { AuthOptions } from "next-auth";
+import type { AuthOptions } from "next-auth";
 
 const nationalIdSchema = z
   .string()

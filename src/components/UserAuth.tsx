@@ -1,10 +1,19 @@
 import { signOut } from "next-auth/react";
+import Image from "next/image";
+
 type userPageProps = { name: string; email: string; image: string };
 
 function UserPage({ name, email, image }: userPageProps) {
   return (
     <div className="absolute left-1/2 top-20 flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center gap-4">
-      <img className="w-20 rounded-full" src={image} alt="" />
+      {/* <img className="w-20 rounded-full" src={image} alt="" /> */}
+      <Image
+        className="w-20 rounded-full"
+        src={image}
+        alt="profile image"
+        width={800}
+        height={500}
+      />
       <h3> {name}</h3>
       <p>{email}</p>
 
