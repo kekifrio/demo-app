@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth/next";
-import authOptions from "../auth/[...nextauth]";
+// import { getServerSession } from "next-auth";
+// import authOptions from "../auth/[...nextauth]";
 import { z } from "zod";
 import type { AuthOptions } from "next-auth";
+import { getServerAuthSession } from "~/server/auth";
 
 const nationalIdSchema = z
   .string()
@@ -22,13 +23,8 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === "POST") {
-    const session = await getServerSession(
-      req,
-      res,
-      authOptions as AuthOptions,
-    );
-
-    if (session)
+    const session = await getServerAuthSession({ req, res });
+    if (!session)
       return res.status(401).json({
         message: "Unauthorized",
       });
