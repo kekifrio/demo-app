@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Person" ALTER COLUMN "salary" SET DATA TYPE DECIMAL(11,2);

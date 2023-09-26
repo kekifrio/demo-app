@@ -16,7 +16,7 @@ model Person {
     national_id  String
     phone_number String
     address      String
-    salary       String
+    salary       Decimal  @db.Decimal(11, 2)
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
 

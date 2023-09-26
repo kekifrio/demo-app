@@ -74,7 +74,6 @@ function UserCard() {
     } else if (filter === "salary") {
       return person.salary.toLowerCase().startsWith(searchTerm.toLowerCase());
     }
-
     return true; // Return all persons if no filter is selected
   });
 

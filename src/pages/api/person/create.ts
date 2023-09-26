@@ -1,9 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
-// import { getServerSession } from "next-auth";
-// import authOptions from "../auth/[...nextauth]";
 import { z } from "zod";
-import type { AuthOptions } from "next-auth";
 import { getServerAuthSession } from "~/server/auth";
 
 const nationalIdSchema = z
@@ -14,7 +11,7 @@ const nameSchema = z.string().regex(/^(?! )[A-Za-z]+(?: [A-Za-z]+)*$/);
 
 const phoneNumberSchema = z.string().regex(/^6\d{7}$/);
 
-const salarySchema = z.string().regex(/^[1-9]\d*$/);
+const salarySchema = z.string().regex(/^[1-9]\d*(\.\d{2})?$/);
 
 const addressSchema = z.string().regex(/^[a-zA-Z0-9,. ']+$/);
 
