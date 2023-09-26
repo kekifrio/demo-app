@@ -33,7 +33,7 @@ git clone git@github.com:kekifrio/demo-app.git
 Install npm dependencies:
 
 ```
-cd prisma-nextjs-blog
+cd demo-app
 npm install
 ```
 
