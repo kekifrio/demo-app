@@ -10,7 +10,7 @@ interface personsArray {
 }
 
 interface ResponseData {
-  data: personsArray[]; // Assuming the response data is an array of personsArray objects
+  data: personsArray[];
 }
 
 function UserCard() {
@@ -18,16 +18,6 @@ function UserCard() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("");
-
-  // const getAllPersons = async () => {
-  //   try {
-  //     const response = await axios.get<ResponseData>("/api/person/getAll");
-  //     setPersons(response.data.data);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const getAllPersons = () => {
     axios
@@ -53,9 +43,13 @@ function UserCard() {
     setFilter(event.target.value);
   };
 
+  useEffect(() => {
+    setFilter("name"); // Set the default search option to "name"
+  }, []);
+
   const filteredPersons = persons.filter((person) => {
-    if (searchTerm === "") {
-      return true; // Return all persons if search term is empty
+    if (searchTerm === "" && filter === "name") {
+      return true; // Return all persons when search input is empty and search option is "name"
     }
 
     // Filter based on selected attribute
@@ -74,25 +68,24 @@ function UserCard() {
     } else if (filter === "salary") {
       return person.salary.toLowerCase().startsWith(searchTerm.toLowerCase());
     }
-    return true; // Return all persons if no filter is selected
+    return true;
   });
 
   return (
     <div>
       <div>
         <input
-          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          className=" block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           type="text"
           value={searchTerm}
           onChange={handleSearch}
           placeholder="Search..."
         />
         <select
-          className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-600 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
           value={filter}
           onChange={handleFilterChange}
         >
-          <option value="">All</option>
           <option value="name">Name</option>
           <option value="national_id">National ID</option>
           <option value="phone_number">Phone Number</option>
